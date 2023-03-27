@@ -13,17 +13,17 @@ class ChatBot:
         self.archive_file = f"{conversation_folder}/archive/{name}.conv"
         self.audio_folder = f"./audio_clips/{name}"
         if conversation_primer:
-            self.conversation.append(self._GptMessage('system', conversation_primer))
-        self.LoadConversation()
+            self.conversation.append(self._gpt_message('system', conversation_primer))
+        self.__load_conversation()
         print(f"Created Chatbot: {name}")
 
-    def _GptMessage(self, role, content):
+    def _gpt_message(self, role, content):
         return {"role": role, "content": content}
                 
-    def GetAudioFolder(self):
+    def get_audio_folder(self):
         return self.audio_folder
     
-    def LoadConversation(self):
+    def __load_conversation(self):
         if not os.path.exists(self.active_file):
             return
         
@@ -31,24 +31,24 @@ class ChatBot:
             self.conversation = json.load(f)
             print(f"loaded previous conversation: {self.conversation}")
             
-    def SaveConversation(self):
+    def __save_conversation(self):
         os.makedirs(os.path.dirname(self.active_file), exist_ok=True)
         with open(self.active_file, "w") as f:
             json.dump(self.conversation, f)
         
-    def ResetConversation(self):
+    def reset_conversation(self):
         os.makedirs(os.path.dirname(self.archive_file), exist_ok=True)
         os.replace(self.active_file, self.archive_file)
         
-    def GetConversationIndex(self):
+    def get_conversation_index(self):
         return len(self.conversation)
     
-    def GetResponseAudioFile(self):
-        return f"{self.GetAudioFolder()}/{self.GetConversationIndex()}.mp3"
+    def get_response_audio_file(self):
+        return f"{self.get_audio_folder()}/{self.get_conversation_index()}.mp3"
     
-    def SendMessage(self, content) -> str:
+    def send_message(self, content) -> str:
         print(f"sending message to bot {self.name}: {content}")
-        self.conversation.append(self._GptMessage('user',content))
+        self.conversation.append(self._gpt_message('user',content))
         completion = self.openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             messages=self.conversation,
@@ -56,6 +56,6 @@ class ChatBot:
         )
         response = completion.choices[0].message.content
         print(f"bot {self.name} responded: {response}")
-        self.conversation.append(self._GptMessage('assistant', response))
-        self.SaveConversation()
+        self.conversation.append(self._gpt_message('assistant', response))
+        self.__save_conversation()
         return response
