@@ -58,6 +58,10 @@ reset_intent = [
     "start over conversation"
 ]
 
+stop_intent = [
+    "stop program"
+]
+
 def print_bot_names():
     for key in conversation_bots.keys():
         print(key)        
@@ -102,6 +106,12 @@ def handle_bot_intent(message: str):
 
 def classify_speech(message: str):
     global current_bot
+    if is_intent(message, stop_intent):
+        print(f"Stop Intent: {message}")
+        background_audio.stop()
+        background_audio.join()
+        exit(1)
+    
     if current_bot:        
         handle_bot_intent(message)
         return
