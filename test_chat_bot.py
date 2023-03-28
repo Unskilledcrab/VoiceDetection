@@ -5,4 +5,4 @@ chatbot = ChatBot('Larry', 'you are a farmer named larry that loves to be welcom
 while True:
     user_input = input("What would you like to say to larry? ")
     
-    response = chatbot.SendMessage(user_input)
+    response = chatbot.send_message(user_input)

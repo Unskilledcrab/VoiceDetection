@@ -1,6 +1,6 @@
 from classes import BackgroundAudioPlayer
 
-background_audio_player = BackgroundAudioPlayer("./audio_clips/voice.mp3")
+background_audio_player = BackgroundAudioPlayer("./audio_clips/system/voice.mp3")
 
 background_audio_player.start()
 

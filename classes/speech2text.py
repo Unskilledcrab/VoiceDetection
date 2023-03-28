@@ -19,6 +19,7 @@ class Speech2Text:
                 # Use speech recognition to transcribe the audio
                 try:
                     text = self.r.recognize_google(audio)
+                    print(f"I heard: {text}")
                     return text
                 except sr.UnknownValueError:
                     print("Could not understand audio")

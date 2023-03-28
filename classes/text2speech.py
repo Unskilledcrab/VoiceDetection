@@ -6,7 +6,9 @@ class Text2Speech:
     voice_id_lookup = {
         "premade/Adam": "pNInz6obpgDQGcFmaJgB",
         "premade/Antoni": "ErXwobaYiN019PkySvjV",
-        "premade/Arnold": "VR6AewLTigWG4xSOukaG"        
+        "premade/Arnold": "VR6AewLTigWG4xSOukaG",
+        "premade/Josh": "TxGEqnHWrfWFTfGW9XjX",
+        "premade/Elli": "MF3mGyEYCl7XYWbV9V6O"       
     }
     
     def __init__(self) -> None:
