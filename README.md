@@ -22,6 +22,8 @@ make sure to add and set the following environmental variables
 
 then run `main.py` or any of the tests to test individual components
 
+TIP: Say `stop program` in order to shutdown everything
+
 #### Eleven Labs
 Used for text to speech
 https://beta.elevenlabs.io/speech-synthesis
