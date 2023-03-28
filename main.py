@@ -32,6 +32,7 @@ recall_intent = [
 
 help_intent = [
     "help"
+    "what do I do"
 ]
 
 def print_bot_names():
@@ -50,11 +51,17 @@ def handle_entry(message: str):
         if key in message.lower():
             print(f"now talking to {key}")
             current_bot = conversation_bots[key]
+            Audio2Sound().play(system_clip("connecting_to_person.mp3"))
             return
-        
+    
+    if is_intent(message, help_intent):
+        print(f"Help Intent: {message}")
+        Audio2Sound().play(system_clip("help.mp3"))
+        return
+    
     print("You must select a character to talk to from the following:")
     print_bot_names()
-    Audio2Sound().play(system_clip("select_character.mp3"))
+    Audio2Sound().play(system_clip("help.mp3"))
     
 def handle_bot_intent(message: str):
     global current_bot
@@ -62,13 +69,9 @@ def handle_bot_intent(message: str):
         print(f"Leave Intent: {message}")
         current_bot = None
         return
-    # if is_intent(message, help_intent):
-    #     print(f"Help Intent: {message}")
-    #     Audio2Sound().play(system_clip("help.mp3"))
-    #     return
     if is_intent(message, recall_intent):
         print(f"Recall Intent: {message}")
-        # make a method on bot to recall and replay past messages
+        current_bot.replay()
         pass
     else:
         print("talking to bot")

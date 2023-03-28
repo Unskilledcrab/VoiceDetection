@@ -29,6 +29,11 @@ class ConversationBot:
     def set_sending_message_sound(self, audio_file):
         self.send_message_sound = audio_file
         
+    # replay the last message
+    def replay(self):
+        response_audio_file = self.chatbot.get_response_audio_file()
+        self.audio_2_sound.play(response_audio_file)
+        
     def talk_to(self, message: str):        
         acknowledgement_audio = BackgroundAudioPlayer(self.acknowledgement_sound)
         acknowledgement_audio.start()
