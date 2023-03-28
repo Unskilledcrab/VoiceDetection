@@ -6,10 +6,11 @@ from .background_audio_player import BackgroundAudioPlayer
 
 class ConversationBot:
         
-    def __init__(self, name, backstory) -> None:
+    def __init__(self, name, backstory, voice_id) -> None:
         self.text_2_speech = Text2Speech()
         self.audio_2_sound = Audio2Sound()
         self.speech_2_text = Speech2Text()
+        self.voice_id = voice_id
         self.chatbot = ChatBot(name=name, conversation_primer=self.__get_primer(name, backstory))
         self.acknowledgement_sound = './audio_clips/system/acknowledge.mp3'
         self.send_message_sound = './audio_clips/system/dark-magic-loop-47178.mp3'
@@ -37,7 +38,7 @@ class ConversationBot:
         send_message_audio.start()
         
         response = self.chatbot.send_message(message)
-        response_audio_file = self.text_2_speech.text_to_speech(response, self.chatbot.get_response_audio_file())
+        response_audio_file = self.text_2_speech.text_to_speech(response, self.chatbot.get_response_audio_file(), self.voice_id)
         send_message_audio.stop()
         
         send_message_audio.join()
