@@ -24,15 +24,12 @@ https://beta.elevenlabs.io/speech-synthesis
 Used for text generation (chat bot)
 https://chat.openai.com/chat
 
-#### PyAudio
-Used to capture audio (speech 2 audio files)
+#### speech_recognition
+Used to capture audio and convert to text
 
-#### AudioSegment
+#### playsound
 Used for audio playback
 
-#### Speech Recognition
-Used for audio to text
-
 #### Sound Effects
-Sound Effect from [Pixabay](https://pixabay.com/sound-effects/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=music&amp;utm_content=43045)
-Sound Effect from [Pixabay](https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=music&amp;utm_content=47178)
+- Sound Effect from [Pixabay](https://pixabay.com/sound-effects/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=music&amp;utm_content=43045)
+- Sound Effect from [Pixabay](https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=music&amp;utm_content=47178)
