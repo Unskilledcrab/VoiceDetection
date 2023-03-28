@@ -34,6 +34,10 @@ class ConversationBot:
         response_audio_file = self.chatbot.get_response_audio_file()
         self.audio_2_sound.play(response_audio_file)
         
+    # reset the conversation
+    def reset_conversation(self):
+        self.chatbot.reset_conversation()
+        
     def talk_to(self, message: str):        
         acknowledgement_audio = BackgroundAudioPlayer(self.acknowledgement_sound)
         acknowledgement_audio.start()

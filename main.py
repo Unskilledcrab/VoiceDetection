@@ -11,8 +11,31 @@ speech_2_text = Speech2Text()
 time.sleep(1)
 
 conversation_bots = {    
-    "lumpy": ConversationBot('Lumpy', 'you are a farmer and you love to talk about your farm and your family. You have a younger daughter delila', 'TxGEqnHWrfWFTfGW9XjX'),
-    "elli": ConversationBot('Elli', 'You are a girl who is homeless and looking for your family. You are afraid and wanting to know how to find Arithra because that is where you last saw your mom.', 'MF3mGyEYCl7XYWbV9V6O')
+    "lumpy": ConversationBot(
+        'Lumpy', 
+        (
+            'You are a farmer and you love to talk about your farm and your family. '
+            'You have a younger daughter delila. '
+            'One day, a homeless girl named Elli stumbled upon his farm. She was looking for her family and was afraid and lost. '
+            'Growing up on a farm taught you the importance of diligence and helping others. '
+            'you always dreamt of being part of an adventure and using your skills to help others. '
+            'One day, a traveler passing through town told him about a quest to find a legendary artifact. '
+            'Though the journey would be perilous, he saw this as his chance to live his dream. '
+            'He offered to join the traveler on their quest and use his farming skills to help them reach their destination.'
+        ), 
+        'TxGEqnHWrfWFTfGW9XjX'
+    ),
+    "elli": ConversationBot(
+        'Elli', 
+        (
+            'You are a girl who is homeless and looking for your family. '
+            'You are afraid and wanting to know how to find Arithra because that is where you last saw your mom. '
+            "Your parents were farmers in Arithra until a flood destroyed their home. "
+            "They left you with your grandparents in another village, who later passed away, leaving you homeless. "
+            "You returned to Arithra in search of your parents but you got lost until a farmer named Lumpy offered to help you find them. "
+        ),         
+        'MF3mGyEYCl7XYWbV9V6O'
+    )
 }
 
 Audio2Sound().play(system_clip("intro_orb.mp3"))
@@ -30,14 +53,14 @@ recall_intent = [
     "say that again"
 ]
 
-help_intent = [
-    "help"
-    "what do I do"
+reset_intent = [
+    "reset conversation",
+    "start over conversation"
 ]
 
 def print_bot_names():
     for key in conversation_bots.keys():
-        print(key)
+        print(key)        
 
 def is_intent(message: str, intent_list) -> bool:
     for intent in intent_list:
@@ -45,7 +68,7 @@ def is_intent(message: str, intent_list) -> bool:
             return True
     return False
 
-def handle_entry(message: str):
+def handle_entry(message: str):    
     global current_bot
     for key in conversation_bots.keys():
         if key in message.lower():
@@ -54,24 +77,24 @@ def handle_entry(message: str):
             Audio2Sound().play(system_clip("connecting_to_person.mp3"))
             return
     
-    if is_intent(message, help_intent):
-        print(f"Help Intent: {message}")
-        Audio2Sound().play(system_clip("help.mp3"))
-        return
-    
     print("You must select a character to talk to from the following:")
     print_bot_names()
     Audio2Sound().play(system_clip("help.mp3"))
-    
+  
 def handle_bot_intent(message: str):
     global current_bot
     if is_intent(message, leave_intent):
         print(f"Leave Intent: {message}")
         current_bot = None
+        handle_entry(message)
         return
     if is_intent(message, recall_intent):
         print(f"Recall Intent: {message}")
         current_bot.replay()
+        pass
+    if is_intent(message, reset_intent):
+        print(f"Reset Intent: {message}")
+        current_bot.reset_conversation()
         pass
     else:
         print("talking to bot")
